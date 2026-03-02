@@ -127,21 +127,31 @@ body {
 
 /* HERO SECTION */
 .profile-hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: auto;
-  padding-top: 5.5rem;
-  align-items: start;
-  gap: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 3rem 2rem;
 }
 
 /* Gallery */
 .profile-gallery-wrap {
   position: relative;
+  overflow: visible;
+  background: transparent;
+  flex: 0 0 340px;
+  width: 340px;
+}
+
+.profile-gallery-main {
+  position: relative;
+  width: 340px;
+  height: 480px;
   overflow: hidden;
-  background: #0d0d0d;
-  height: 500px;
-  border-right: 1px solid var(--border);
+  background: #111;
+  border: 1px solid var(--border);
 }
 
 .profile-gallery-slides {
@@ -151,8 +161,9 @@ body {
 }
 
 .profile-gallery-slide {
-  min-width: 100%;
-  height: 500px;
+  min-width: 340px;
+  width: 340px;
+  height: 480px;
   background: #181818;
   display: flex;
   align-items: center;
@@ -161,99 +172,86 @@ body {
   position: relative;
 }
 
-.profile-gallery-slide::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(8, 8, 8, 0.4) 0%, transparent 30%);
-  pointer-events: none;
+.profile-gallery-slide img {
+  object-position: top;
 }
 
-/* Gallery nav */
+.profile-gallery-slide::after {
+  display: none;
+}
+
+/* Gallery nav - thumbnail strip */
 .profile-gallery-dots {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
-  gap: 0.6rem;
-  z-index: 10;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  flex-wrap: wrap;
 }
 
 .profile-dot {
-  width: 28px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.25);
+  width: 68px;
+  height: 48px;
+  background: #1a1a1a;
+  border: 2px solid transparent;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: border-color 0.2s;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
 }
 
 .profile-dot.active {
-  background: var(--pink-main);
-  width: 48px;
+  border-color: var(--pink-main);
 }
 
 .profile-gallery-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(8, 8, 8, 0.6);
-  border: 1px solid var(--border);
-  color: var(--pink-main);
-  width: 44px;
-  height: 44px;
+  background: rgba(0, 0, 0, 0.45);
+  border: none;
+  color: #fff;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 10;
-  transition: all 0.3s;
-  font-size: 1rem;
-  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+  font-size: 0.9rem;
 }
 
 .profile-gallery-prev {
-  left: 1.2rem;
+  left: 0;
 }
 
 .profile-gallery-next {
-  right: 1.2rem;
+  right: 0;
 }
 
 .profile-gallery-btn:hover {
   background: var(--pink-main);
-  color: #fff;
 }
 
 .profile-photo-count {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  z-index: 10;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  color: var(--muted);
+  display: none;
 }
 
 /* INFO PANEL */
 .profile-info-panel {
-  padding: 3rem 4rem 4rem 4rem;
+  flex: 1;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 0;
-  overflow-y: auto;
+  overflow: visible;
   position: relative;
-  background: var(--black);
+  background: transparent;
 }
 
 .profile-info-panel::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 3rem;
-  bottom: 4rem;
-  width: 1px;
-  background: linear-gradient(to bottom, transparent, var(--pink-main), transparent);
+  display: none;
 }
 
 .profile-model-tag {
@@ -276,9 +274,9 @@ body {
 
 .profile-model-name {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(3rem, 5vw, 4.5rem);
-  font-weight: 300;
-  line-height: 1;
+  font-size: clamp(2.2rem, 3.5vw, 3rem);
+  font-weight: 400;
+  line-height: 1.1;
   margin-bottom: 0.3rem;
 }
 
@@ -288,64 +286,68 @@ body {
 }
 
 .profile-model-age {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   color: var(--muted);
   font-weight: 300;
-  margin-bottom: 2rem;
-  letter-spacing: 0.05em;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.02em;
 }
 
 .profile-model-bio {
-  font-size: 0.88rem;
-  line-height: 1.8;
+  font-size: 0.92rem;
+  line-height: 1.7;
   color: rgba(240, 235, 227, 0.7);
-  margin-bottom: 2.5rem;
-  max-width: 380px;
+  margin-bottom: 1.2rem;
+  max-width: 480px;
   font-style: italic;
-  border-left: 1px solid var(--border);
-  padding-left: 1.2rem;
+  border-left: 2px solid var(--pink-main);
+  padding-left: 1rem;
 }
 
-/* Stats grid */
+/* Stats grid - table style */
 .profile-stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--border);
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
   border: 1px solid var(--border);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .profile-stat-cell {
-  background: var(--black);
-  padding: 1.1rem 1.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+  display: table-row;
 }
 
 .profile-stat-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  display: table-cell;
+  background: rgba(232, 116, 138, 0.07);
+  padding: 0.7rem 1.2rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
   color: var(--muted);
+  border: 1px solid var(--border);
+  width: 38%;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
 .profile-stat-value {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  font-weight: 400;
+  display: table-cell;
+  background: var(--black);
+  padding: 0.7rem 1.2rem;
+  font-size: 0.92rem;
   color: var(--text);
+  border: 1px solid var(--border);
+  vertical-align: middle;
 }
 
 .profile-stat-highlight .profile-stat-value {
   color: var(--gold);
+  font-weight: 500;
 }
 
 /* Services */
 .profile-services-wrap {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.8rem;
 }
 
 .profile-services-label {
@@ -406,7 +408,7 @@ body {
   background: transparent;
   color: var(--pink-main);
   border: 1px solid var(--pink-main);
-  padding: 1rem 2rem;
+  padding: 0.75rem 1.5rem;
   font-family: 'Be Vietnam Pro', sans-serif;
   font-size: 0.78rem;
   letter-spacing: 0.18em;
@@ -629,27 +631,29 @@ body {
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .profile-hero {
-    grid-template-columns: 1fr;
-    padding-top: 4.5rem;
+    flex-direction: column;
+    padding: 5.5rem 2rem 2rem;
+    gap: 2rem;
   }
 
   .profile-gallery-wrap {
-    height: 400px;
-    min-height: 350px;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .profile-gallery-main {
+    width: 100%;
   }
 
   .profile-gallery-slide {
-    height: 400px;
+    width: 100%;
+    min-width: 100%;
   }
 
   .profile-info-panel {
-    padding: 3rem 2rem;
-  }
-
-  .profile-info-panel::before {
-    display: none;
+    width: 100%;
   }
 
   .profile-nav {

@@ -646,58 +646,65 @@ export default function ModelProfile() {
 
       <section className="profile-hero">
         <div className="profile-gallery-wrap">
-          <div className="profile-gallery-slides" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-            {model?.gallery && model.gallery.length > 0 ? (
-              model.gallery.map((image, index) => (
-                <div key={index} className="profile-gallery-slide">
-                  <img
-                    src={image}
-                    alt={`${model.name} - Photo ${index + 1}`}
-                    style={{
+          <div className="profile-gallery-main">
+            <div className="profile-gallery-slides" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+              {model?.gallery && model.gallery.length > 0 ? (
+                model.gallery.map((image, index) => (
+                  <div key={index} className="profile-gallery-slide">
+                    <img
+                      src={image}
+                      alt={`${model.name} - Photo ${index + 1}`}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </div>
+                ))
+              ) : (
+                [1, 2, 3, 4].map((num) => (
+                  <div key={num} className="profile-gallery-slide">
+                    <div style={{
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover'
-                    }}
-                  />
-                </div>
-              ))
-            ) : (
-              [1, 2, 3, 4].map((num) => (
-                <div key={num} className="profile-gallery-slide">
-                  <div style={{
-                    width: '100%',
-                    height: '100%',
-                    background: `linear-gradient(135deg, #1c${String(num * 5).padStart(2, '0')}10, #0d0d0d)`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    <span style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontSize: '5rem',
-                      color: 'rgba(201, 169, 110, 0.12)'
+                      background: `linear-gradient(135deg, #1c${String(num * 5).padStart(2, '0')}10, #0d0d0d)`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
                     }}>
-                      {String(num).padStart(2, '0')}
-                    </span>
+                      <span style={{
+                        fontFamily: "'Playfair Display', serif",
+                        fontSize: '5rem',
+                        color: 'rgba(201, 169, 110, 0.12)'
+                      }}>
+                        {String(num).padStart(2, '0')}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))
-            )}
+                ))
+              )}
+            </div>
+
+            <button className="profile-gallery-btn profile-gallery-prev" onClick={handlePrevSlide}>
+              <ChevronLeft size={18} />
+            </button>
+            <button className="profile-gallery-btn profile-gallery-next" onClick={handleNextSlide}>
+              <ChevronRight size={18} />
+            </button>
           </div>
 
-          <button className="profile-gallery-btn profile-gallery-prev" onClick={handlePrevSlide}>
-            <ChevronLeft size={20} />
-          </button>
-          <button className="profile-gallery-btn profile-gallery-next" onClick={handleNextSlide}>
-            <ChevronRight size={20} />
-          </button>
-
           <div className="profile-gallery-dots">
-            {[0, 1, 2, 3].map((index) => (
+            {(model?.gallery && model.gallery.length > 0 ? model.gallery : [1, 2, 3, 4]).map((image, index) => (
               <div
                 key={index}
                 className={`profile-dot ${currentSlide === index ? 'active' : ''}`}
                 onClick={() => goToSlide(index)}
+                style={{
+                  backgroundImage: typeof image === 'string' ? `url(${image})` : 'none',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
               />
             ))}
           </div>
